@@ -653,7 +653,7 @@ class BSS(BaseIface):
         return "BSS(Path: %s, SSID: %s, BSSID: %s, Signal: %sdBm)" % (self.get_path(),
                                                                       self.get_ssid(),
                                                                       self.get_bssid(),
-                                                                      self.get_signal())
+                                                                      self.get_signal_dbm())
 
     def to_dict(self):
         """Dict representation of a BSS object"""
