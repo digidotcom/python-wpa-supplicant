@@ -24,7 +24,8 @@ class MockDBusObject(object):
     def __init__(self, *args, **kwargs):
         self.callRemote = mock.Mock(side_effect=self._callRemote)
         self.notifyOnSignal = mock.Mock(side_effect=self._notifyOnSignal)
-        self.cancelSignalNotification = mock.Mock(side_effect=self._cancelSignalNotification)
+        self.cancelSignalNotification = mock.Mock(
+            side_effect=self._cancelSignalNotification)
 
         self._signals = dict()
 
@@ -78,9 +79,9 @@ class MockWpaSupplicant(MockDBusObject):
         }
         self._created_interfaces = []
 
-    #--------------------------------------------------------------------------
+    #
     # Methods
-    #--------------------------------------------------------------------------
+    #
     def GetInterface(self, interface_name):
         if interface_name in self._valid_interfaces:
             return self._valid_interfaces.get(interface_name)
@@ -114,39 +115,58 @@ class MockWpaSupplicant(MockDBusObject):
         self._created_interfaces.append(iface_path)
         return iface_path
 
-    #--------------------------------------------------------------------------
+    #
     # Properties
-    #--------------------------------------------------------------------------
+    #
     def Get_Interfaces(self):
-        return None
+        return [u'/fi/w1/wpa_supplicant1/Interfaces/7']
 
     def Get_EapMethods(self):
-        return None
+        return [u'MD5',
+                u'TLS',
+                u'MSCHAPV2',
+                u'PEAP',
+                u'TTLS',
+                u'GTC',
+                u'OTP',
+                u'SIM',
+                u'LEAP',
+                u'PSK',
+                u'AKA',
+                u"AKA'",
+                u'FAST',
+                u'PAX',
+                u'SAKE',
+                u'GPSK',
+                u'WSC',
+                u'IKEV2',
+                u'TNC',
+                u'PWD']
 
     def Get_DebugLevel(self):
-        return None
+        return u'info'
+
+    def Get_DebugShowKeys(self):
+        return False
 
     def Get_DebugTimestamp(self):
-        return None
-
-    def Get_DebugLevel(self):
-        return None
+        return False
 
 
 class MockInterfaceObject(MockDBusObject):
     """Mock wpa_supplicant `Interface` object"""
 
     def __init__(self, *args, **kwargs):
-        MockDBusObject.__init__(self, *args,  **kwargs)
+        MockDBusObject.__init__(self, *args, **kwargs)
 
         # Internal State
         self._network_counter = -1
         self._networks = dict()
         self._current_network = None
 
-    #--------------------------------------------------------------------------
+    #
     # Methods
-    #--------------------------------------------------------------------------
+    #
     def Scan(self, scan_config):
         return None
 
@@ -171,9 +191,9 @@ class MockInterfaceObject(MockDBusObject):
         else:
             self._current_network = None
 
-    #--------------------------------------------------------------------------
+    #
     # Properties
-    #--------------------------------------------------------------------------
+    #
     def Get_CurrentNetwork(self):
         return self._current_network
 
@@ -202,9 +222,9 @@ class MockInterfaceObject(MockDBusObject):
 class MockBSSObject(MockDBusObject):
     """Mock txdbus/wpa_supplicant .fi.w1.wpa_supplicant1.BSS object"""
 
-    #--------------------------------------------------------------------------
+    #
     # Properties
-    #--------------------------------------------------------------------------
+    #
     def Get_BSSID(self):
         return [1, 2, 3, 4]
 

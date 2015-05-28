@@ -134,19 +134,43 @@ class TestWpaSupplicant(unittest.TestCase):
         self.assertRaises(InterfaceUnknown, supplicant.remove_interface, 'wlan99')
 
     def test_get_debug_level(self):
-        pass
+        supplicant = self._driver.connect()
+        self.assertEqual(supplicant.get_debug_level(), u'info')
 
     def test_get_debug_timestamp(self):
-        pass
+        supplicant = self._driver.connect()
+        self.assertEqual(supplicant.get_debug_timestamp(), False)
 
     def test_get_debug_showkeys(self):
-        pass
+        supplicant = self._driver.connect()
 
     def test_get_interfaces(self):
-        pass
+        supplicant = self._driver.connect()
+        self.assertEqual(supplicant.get_interfaces(),
+            [u'/fi/w1/wpa_supplicant1/Interfaces/7'])
 
     def test_get_eap_methods(self):
-        pass
+        supplicant = self._driver.connect()
+        self.assertEqual(supplicant.get_eap_methods(), [u'MD5',
+                                                        u'TLS',
+                                                        u'MSCHAPV2',
+                                                        u'PEAP',
+                                                        u'TTLS',
+                                                        u'GTC',
+                                                        u'OTP',
+                                                        u'SIM',
+                                                        u'LEAP',
+                                                        u'PSK',
+                                                        u'AKA',
+                                                        u"AKA'",
+                                                        u'FAST',
+                                                        u'PAX',
+                                                        u'SAKE',
+                                                        u'GPSK',
+                                                        u'WSC',
+                                                        u'IKEV2',
+                                                        u'TNC',
+                                                        u'PWD'])
 
     #
     # Test Interface
