@@ -155,6 +155,7 @@ def root_set(name, value):
 @click.argument('ifname', 'e.g. wlan0')
 @click.option('--scan_type', default='active', help='Active or Passive')
 def scan(ifname, scan_type):
+    """Method: Trigger a scan and block for results"""
     with supplicant() as supp:
         iface = supp.get_interface(ifname)
         pprint.pprint(iface.scan(type=scan_type, block=True))
@@ -162,7 +163,25 @@ def scan(ifname, scan_type):
 
 @interface.command()
 def disconnect():
+    """Method: Disassociates the interface from current network"""
     raise NotImplemented
+
+
+@interface.command(name='get')
+@click.argument('name', 'Name of property (case sensitive)')
+def interface_get(name):
+    """Method: Get Property (case sensitive)"""
+    with supplicant() as supp:
+        pprint.pprint(supp.get(name))
+
+
+@interface.command(name='set')
+@click.argument('name', 'Name of property (case sensitive)')
+@click.argument('value', 'Value to be set')
+def interface_set(name, value):
+    """Method: Set Property (case sensitive)"""
+    with supplicant() as supp:
+        pprint.pprint(supp.set(name, value))
 
 
 def run():
