@@ -55,11 +55,11 @@ def add_optional_args(args, *optionals):
 
 @click.group()
 @click.option('--debug/--no-debug', default=False, help="Show log debug on stdout")
-def wpacli(debug):
+def root(debug):
     """Command line interface for wpa_supplicant D-Bus"""
 
 
-@wpacli.group()
+@root.group()
 def interface():
     """Access fi.w1.wpa_supplicant1.Interface object"""
 
@@ -74,27 +74,27 @@ def interface_p2p_device():
     """Access fi.w1.wpa_supplicant1.Interface.P2PDevice object"""
 
 
-@wpacli.group()
+@root.group()
 def bss():
     """Access fi.w1.wpa_supplicant1.BSS object"""
 
 
-@wpacli.group()
+@root.group()
 def network():
     """Access fi.w1.wpa_supplicant1.Network object"""
 
 
-@wpacli.group()
+@root.group()
 def peer():
     """Access fi.w1.wpa_supplicant1.Peer object"""
 
 
-@wpacli.group()
+@root.group()
 def group():
     """Access fi.w1.wpa_supplicant1.Group object"""
 
 
-@wpacli.group()
+@root.group()
 def persistent_group():
     """Access fi.w1.wpa_supplicant1.PersistentGroup object"""
 
@@ -102,7 +102,7 @@ def persistent_group():
 #
 # fi.w1.wpa_supplicant1 API
 #
-@wpacli.command()
+@root.command()
 @click.argument('ifname', 'e.g. wlan0')
 @click.option('--bridge_if_name', default=None, help='Bridge to control, e.g., br0')
 @click.option('--driver', default=None, help='e.g. nl80211')
@@ -114,7 +114,7 @@ def create_interface(ifname, bridge_if_name, driver, config_file):
         pprint.pprint(supp.create_interface(*args))
 
 
-@wpacli.command()
+@root.command()
 @click.argument('ifname', 'e.g. wlan0')
 def remove_interface(ifname):
     """Method: Deregisters a wireless interface from wpa_supplicant"""
@@ -123,12 +123,29 @@ def remove_interface(ifname):
         supp.remove_interface(iface.get_path())
 
 
-@wpacli.command()
+@root.command()
 @click.argument('ifname', 'e.g. wlan0')
 def get_interface(ifname):
     """Method: Returns a D-Bus path to an object related to an interface which wpa_supplicant already controls"""
     with supplicant() as supp:
         pprint.pprint(supp.get_interface(ifname))
+
+
+@root.command(name='get')
+@click.argument('name', 'Name of property (case sensitive)')
+def root_get(name):
+    """Method: Get Property (case sensitive)"""
+    with supplicant() as supp:
+        pprint.pprint(supp.get(name))
+
+
+@root.command(name='set')
+@click.argument('name', 'Name of property (case sensitive)')
+@click.argument('value', 'Value to be set')
+def root_set(name, value):
+    """Method: Set Property (case sensitive)"""
+    with supplicant() as supp:
+        pprint.pprint(supp.set(name, value))
 
 
 #
@@ -149,7 +166,7 @@ def disconnect():
 
 
 def run():
-    wpacli()
+    root()
 
 
 if __name__ == '__main__':
