@@ -115,8 +115,12 @@ def create_interface(ifname, bridge_if_name, driver, config_file):
 
 
 @wpacli.command()
-def remove_interface():
+@click.argument('ifname', 'e.g. wlan0')
+def remove_interface(ifname):
     """Method: Deregisters a wireless interface from wpa_supplicant"""
+    with supplicant() as supp:
+        iface = supp.get_interface(ifname)
+        supp.remove_interface(iface.get_path())
 
 
 @wpacli.command()
