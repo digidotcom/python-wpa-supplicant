@@ -1,10 +1,12 @@
+# TODO: There is no good way to accept array type arguments
+
 import click
 from contextlib import contextmanager
 import threading
 from twisted.internet.selectreactor import SelectReactor
 import time
 from wpa_supplicant.libcore import WpaSupplicantDriver
-
+import pprint
 
 #
 # Helpers
@@ -35,18 +37,66 @@ def add_optional_args(args, *optionals):
             args.append(opt)
     return args
 
+
 #
-# The outer commands
+# The following CLI "groups" follow the natural hierarchy of the D-Bus
+# object system:
 #
+# * fi.w1.wpa_supplicant1
+#     * fi.w1.wpa_supplicant1.Interface
+#     * fi.w1.wpa_supplicant1.Interface.WPS
+#     * fi.w1.wpa_supplicant1.Interface.P2PDevice
+#     * fi.w1.wpa_supplicant1.BSS
+#     * fi.w1.wpa_supplicant1.Network
+#     * fi.w1.wpa_supplicant1.Peer
+#     * fi.w1.wpa_supplicant1.Group
+#     * fi.w1.wpa_supplicant1.PersistentGroup
+#
+
 @click.group()
 @click.option('--debug/--no-debug', default=False, help="Show log debug on stdout")
 def wpacli(debug):
     """Command line interface for wpa_supplicant D-Bus"""
 
 
-@click.group()
+@wpacli.group()
 def interface():
-    pass
+    """Access fi.w1.wpa_supplicant1.Interface object"""
+
+
+@interface.group(name='wps')
+def interface_wps():
+    """Access fi.w1.wpa_supplicant1.Interface.WPS object"""
+
+
+@interface.group(name='p2p_device')
+def interface_p2p_device():
+    """Access fi.w1.wpa_supplicant1.Interface.P2PDevice object"""
+
+
+@wpacli.group()
+def bss():
+    """Access fi.w1.wpa_supplicant1.BSS object"""
+
+
+@wpacli.group()
+def network():
+    """Access fi.w1.wpa_supplicant1.Network object"""
+
+
+@wpacli.group()
+def peer():
+    """Access fi.w1.wpa_supplicant1.Peer object"""
+
+
+@wpacli.group()
+def group():
+    """Access fi.w1.wpa_supplicant1.Group object"""
+
+
+@wpacli.group()
+def persistent_group():
+    """Access fi.w1.wpa_supplicant1.PersistentGroup object"""
 
 
 #
@@ -58,29 +108,35 @@ def interface():
 @click.option('--driver', default=None, help='e.g. nl80211')
 @click.option('--config_file', default=None, help='Config file path')
 def create_interface(ifname, bridge_if_name, driver, config_file):
+    """Method: Registers a wireless interface in wpa_supplicant"""
     args = add_optional_args([ifname, ], bridge_if_name, driver, config_file)
     with supplicant() as supp:
-        print supp.create_interface(*args)
+        pprint.pprint(supp.create_interface(*args))
 
 
 @wpacli.command()
 def remove_interface():
-    pass
+    """Method: Deregisters a wireless interface from wpa_supplicant"""
 
 
 @wpacli.command()
 @click.argument('ifname', 'e.g. wlan0')
 def get_interface(ifname):
+    """Method: Returns a D-Bus path to an object related to an interface which wpa_supplicant already controls"""
     with supplicant() as supp:
-        print supp.get_interface(ifname)
+        pprint.pprint(supp.get_interface(ifname))
 
 
 #
 # fi.w1.wpa_supplicant1.Interface API
 #
 @interface.command()
-def scan():
-    raise NotImplemented
+@click.argument('ifname', 'e.g. wlan0')
+@click.option('--scan_type', default='active', help='Active or Passive')
+def scan(ifname, scan_type):
+    with supplicant() as supp:
+        iface = supp.get_interface(ifname)
+        pprint.pprint(iface.scan(type=scan_type, block=True))
 
 
 @interface.command()
