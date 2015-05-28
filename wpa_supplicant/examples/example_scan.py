@@ -1,10 +1,12 @@
 from wpa_supplicant.libcore import WpaSupplicantDriver
 from twisted.internet.selectreactor import SelectReactor
 import threading
+import time
 
 # Start a simple Twisted SelectReactor
 reactor = SelectReactor()
 threading.Thread(target=reactor.run, kwargs={'installSignalHandlers': 0}).start()
+time.sleep(0.1)  # let reactor start
 
 # Start Driver
 driver = WpaSupplicantDriver(reactor)
