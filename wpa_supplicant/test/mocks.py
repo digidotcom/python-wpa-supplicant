@@ -1,3 +1,10 @@
+"""This module provides classes for mocking out the txdbus layer at a low level
+
+Mocking out things at this layer means that some of the txdbus code is being tested
+in addition to the wpa_supplicant library code.  Although a-typical of traditional unit
+testing this approach proved beneficial in practice.
+"""
+
 from twisted.internet import defer
 from collections import OrderedDict
 from txdbus import client, error
@@ -194,11 +201,20 @@ class MockInterfaceObject(MockDBusObject):
     #
     # Properties
     #
+    def Get_Networks(self):
+        return []
+
+    def Get_FastReauth(self):
+        return True
+
+    def Get_ScanInterval(self):
+        return 5
+
     def Get_CurrentNetwork(self):
         return self._current_network
 
     def Get_Ifname(self):
-        return 'wlan0'
+        return u'wlan0'
 
     def Get_BSSs(self):
         return ['/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234', ]
@@ -207,16 +223,46 @@ class MockInterfaceObject(MockDBusObject):
         return '/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234'
 
     def Get_ApScan(self):
-        return None
+        return 1
 
     def Get_Scanning(self):
-        return None
+        return False
 
     def Get_State(self):
-        return None
+        return u'inactive'
 
     def Get_Capabilities(self):
-        return None
+        return {u'AuthAlg': [u'open', u'shared', u'leap'],
+                u'Group': [u'ccmp', u'tkip', u'wep104', u'wep40'],
+                u'KeyMgmt': [u'none',
+                             u'ieee8021x',
+                             u'wpa-eap',
+                             u'wpa-ft-eap',
+                             u'wpa-eap-sha256',
+                             u'wpa-psk',
+                             u'wpa-ft-psk',
+                             u'wpa-psk-sha256',
+                             u'wps'],
+                u'MaxScanSSID': 4,
+                u'Modes': [u'infrastructure', u'ad-hoc', u'ap'],
+                u'Pairwise': [u'ccmp', u'tkip'],
+                u'Protocol': [u'rsn', u'wpa'],
+                u'Scan': [u'active', u'passive', u'ssid']}
+
+    def Get_Country(self):
+        return u'US'
+
+    def Get_BSSExpireAge(self):
+        return 180
+
+    def Get_BSSExpireCount(self):
+        return 2
+
+    def Get_BridgeIfname(self):
+        return u''
+
+    def Get_Driver(self):
+        return u'nl80211'
 
 
 class MockBSSObject(MockDBusObject):

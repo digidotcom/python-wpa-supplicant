@@ -245,40 +245,53 @@ class TestWpaSupplicant(unittest.TestCase):
         self.assertRaises(NotConnected, interface.disconnect_network)
 
     def test_get_networks(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_networks(), [])
 
     def test_get_state(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_state(), u'inactive')
 
     def test_get_scanning(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_scanning(), False)
 
     def test_get_scan_interval(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_scan_interval(), 5)
 
     def test_get_fast_reauth(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_fast_reauth(), True)
 
     def test_get_all_bss(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_all_bss(),
+            ['/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234', ])
 
     def test_get_driver(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_driver(), u'nl80211')
 
     def test_get_country(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_country(), u'US')
 
     def test_get_bridge_ifname(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_bridge_ifname(), u'')
 
     def test_get_bss_expire_age(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_bss_expire_age(), 180)
 
     def test_get_bss_expire_count(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_bss_expire_count(), 2)
 
     def test_get_ap_scan(self):
-        pass
+        interface = self._get_interface('wlan0')
+        self.assertEqual(interface.get_ap_scan(), 1)
 
     #
     # Test BSS
