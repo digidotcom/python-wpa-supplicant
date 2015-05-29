@@ -38,6 +38,17 @@ def add_optional_args(args, *optionals):
     return args
 
 
+def ctx_get(ctx, key, default=None):
+    """Iterate up context tree and return the value at `key` if found"""
+
+    while not getattr(ctx, 'is_root', False):
+        value = getattr(ctx, key, None)
+        if value is not None:
+            return value
+        ctx = ctx.parent
+    return default
+
+
 #
 # The following CLI "groups" follow the natural hierarchy of the D-Bus
 # object system:
@@ -55,13 +66,18 @@ def add_optional_args(args, *optionals):
 
 @click.group()
 @click.option('--debug/--no-debug', default=False, help="Show log debug on stdout")
-def root(debug):
+@click.pass_context
+def root(ctx, debug):
     """Command line interface for wpa_supplicant D-Bus"""
+    ctx.is_root = True
 
 
 @root.group()
-def interface():
+@click.argument('ifname', 'e.g. wlan0')
+@click.pass_context
+def interface(ctx, ifname):
     """Access fi.w1.wpa_supplicant1.Interface object"""
+    ctx.ifname = ifname
 
 
 @interface.group(name='wps')
@@ -152,36 +168,43 @@ def root_set(name, value):
 # fi.w1.wpa_supplicant1.Interface API
 #
 @interface.command()
-@click.argument('ifname', 'e.g. wlan0')
 @click.option('--scan_type', default='active', help='Active or Passive')
-def scan(ifname, scan_type):
+@click.pass_context
+def scan(ctx, scan_type):
     """Method: Trigger a scan and block for results"""
     with supplicant() as supp:
-        iface = supp.get_interface(ifname)
+        iface = supp.get_interface(ctx_get(ctx, 'ifname'))
         pprint.pprint(iface.scan(type=scan_type, block=True))
 
 
 @interface.command()
-def disconnect():
+@click.pass_context
+def disconnect(ctx):
     """Method: Disassociates the interface from current network"""
-    raise NotImplemented
+    with supplicant() as supp:
+        iface = supp.get_interface(ctx_get(ctx, 'ifname'))
+        iface.disconnect()
 
 
 @interface.command(name='get')
 @click.argument('name', 'Name of property (case sensitive)')
-def interface_get(name):
+@click.pass_context
+def interface_get(ctx, name):
     """Method: Get Property (case sensitive)"""
     with supplicant() as supp:
-        pprint.pprint(supp.get(name))
+        iface = supp.get_interface(ctx_get(ctx, 'ifname'))
+        pprint.pprint(iface.get(name))
 
 
 @interface.command(name='set')
 @click.argument('name', 'Name of property (case sensitive)')
 @click.argument('value', 'Value to be set')
-def interface_set(name, value):
+@click.pass_context
+def interface_set(ctx, name, value):
     """Method: Set Property (case sensitive)"""
     with supplicant() as supp:
-        pprint.pprint(supp.set(name, value))
+        iface = supp.get_interface(ctx_get(ctx, 'ifname'))
+        pprint.pprint(iface.set(name, value))
 
 
 def run():

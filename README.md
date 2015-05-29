@@ -49,7 +49,7 @@ With the CLI, you can do it in 2 commands:
 $ wpa create_interface wlan0
 Interface(Path: /fi/w1/wpa_supplicant1/Interfaces/5, Name: wlan0, State: disconnected)
 OK
-$ wpa interface scan wlan0
+$ wpa interface wlan0 scan
  BSS(Path: /fi/w1/wpa_supplicant1/Interfaces/3/BSSs/13, SSID: WINKHUB-107, BSSID: B4:79:A7:17:38:B5, Signal: -75dBm),
  BSS(Path: /fi/w1/wpa_supplicant1/Interfaces/3/BSSs/20, SSID: Stage, BSSID: 04:18:D6:67:2A:9C, Signal: -67dBm),
  BSS(Path: /fi/w1/wpa_supplicant1/Interfaces/3/BSSs/22, SSID: DAP-GUEST, BSSID: 00:07:7D:34:DB:BD, Signal: -73dBm),
