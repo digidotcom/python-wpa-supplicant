@@ -1,0 +1,73 @@
+Object,Method,Supported
+root,CreateInterface,X
+,RemoveInterface,X
+,GetInterface,X
+,Get (properties),X
+,Set (properties),X
+,Register (signal),X
+Interface,Scan,X
+,Disconnect,X
+,AddNetwork,X
+,RemoveNetwork,X
+,RemoveAllNetworks,X
+,SelectNetwork,X
+,Reassociate,
+,Reattach,
+,AddBlob,
+,RemoveBlob,
+,GetBlob,
+,AutoScan,
+,TDLSDiscover,
+,TDLSSetup,
+,TDLSStatus,
+,TDLSTeardown,
+,EAPLogoff,
+,EAPLogon,
+,NetworkReply,
+,SetPKCS11EngineAndModulePath,
+,SignalPoll,
+,FlushBSS,
+,SubscribeProbReq,
+,UnsubscribeProbReq,
+,Get (properties),X
+,Set (properties),X
+,Register (signal),X
+Interface.WPS,Start,
+,Get (properties),
+,Set (properties),
+,Register (signal),
+Interface.P2PDevice,Find,
+,StopFind,
+,Listen,
+,ExtendedListen,
+,PresenceRequest,
+,ProvisionDiscoveryRequest,
+,Connect,
+,GroupAdd,
+,Invite,
+,Disconnect,
+,RejectPeer,
+,Flush,
+,AddService,
+,DeleteService,
+,FlushService,
+,ServiceDiscoveryRequest,
+,ServiceDiscoveryResponse,
+,ServiceDiscoveryCancelRequest,
+,ServiceUpdate,
+,Register (signal),
+BSS,Get (properties),X
+,Set (properties),X
+,Register (signal),X
+Network,Get (properties),X
+,Set (properties),X
+,Register (signal),X
+Peer,Get (properties),
+,Set (properties),
+,Register (signal),
+Group,Get (properties),
+,Set (properties),
+,Register (signal),
+PersistentGroup,Get (properties),
+,Set (properties),
+,Register (signal),

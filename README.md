@@ -67,3 +67,90 @@ Installation
 ```sh
 $ pip install wpa_supplicant
 ```
+
+
+Feature Coverage Map
+--------------------
+
+Often times adding a command or method to the library is very trivial however due to
+the finicky-ness of D-Bus in my experience, it is better to have an explicit method
+in the library that maps to a method in the D-Bus interface, even if the implementation
+is very cookie-cutter.
+
+Here is the current feature coverage:
+
+
+|Object               |  Method                         |  Supported|
+|---------------------|---------------------------------|-----------|
+|root                 |  CreateInterface                |  Yes      |  
+|                     |  RemoveInterface                |  Yes      |  
+|                     |  GetInterface                   |  Yes      |  
+|                     |  Get (properties)               |  Yes      |  
+|                     |  Set (properties)               |  Yes      |  
+|                     |  Register (signal)              |  Yes      |  
+|Interface            |  Scan                           |  Yes      |  
+|                     |  Disconnect                     |  Yes      |  
+|                     |  AddNetwork                     |  Yes      |  
+|                     |  RemoveNetwork                  |  Yes      |  
+|                     |  RemoveAllNetworks              |  Yes      |  
+|                     |  SelectNetwork                  |  Yes      |  
+|                     |  Reassociate                    |   *       |  
+|                     |  Reattach                       |   *       |  
+|                     |  AddBlob                        |   *       |  
+|                     |  RemoveBlob                     |   *       |  
+|                     |  GetBlob                        |   *       |  
+|                     |  AutoScan                       |   *       |  
+|                     |  TDLSDiscover                   |   *       |  
+|                     |  TDLSSetup                      |   *       |  
+|                     |  TDLSStatus                     |   *       |  
+|                     |  TDLSTeardown                   |   *       |  
+|                     |  EAPLogoff                      |   *       |  
+|                     |  EAPLogon                       |   *       |  
+|                     |  NetworkReply                   |   *       |  
+|                     |  SetPKCS11EngineAndModulePath   |   *       |  
+|                     |  SignalPoll                     |   *       |  
+|                     |  FlushBSS                       |   *       |  
+|                     |  SubscribeProbReq               |   *       |  
+|                     |  UnsubscribeProbReq             |   *       |  
+|                     |  Get (properties)               |  Yes      |  
+|                     |  Set (properties)               |  Yes      |  
+|                     |  Register (signal)              |  Yes      |  
+|Interface.WPS        |  Start                          |   *       | 
+|                     |  Get (properties)               |   *       | 
+|                     |  Set (properties)               |   *       | 
+|                     |  Register (signal)              |   *       | 
+|Interface.P2PDevice  |  Find                           |   *       | 
+|                     |  StopFind                       |   *       | 
+|                     |  Listen                         |   *       | 
+|                     |  ExtendedListen                 |   *       | 
+|                     |  PresenceRequest                |   *       | 
+|                     |  ProvisionDiscoveryRequest      |   *       | 
+|                     |  Connect                        |   *       | 
+|                     |  GroupAdd                       |   *       | 
+|                     |  Invite                         |   *       | 
+|                     |  Disconnect                     |   *       | 
+|                     |  RejectPeer                     |   *       | 
+|                     |  Flush                          |   *       |    
+|                     |  AddService                     |   *       | 
+|                     |  DeleteService                  |   *       | 
+|                     |  FlushService                   |   *       | 
+|                     |  ServiceDiscoveryRequest        |   *       | 
+|                     |  ServiceDiscoveryResponse       |   *       | 
+|                     |  ServiceDiscoveryCancelRequest  |   *       | 
+|                     |  ServiceUpdate                  |   *       | 
+|                     |  Register (signal)              |   *       | 
+|BSS                  |  Get (properties)               |  Yes      |  
+|                     |  Set (properties)               |  Yes      |  
+|                     |  Register (signal)              |  Yes      |  
+|Network              |  Get (properties)               |  Yes      |  
+|                     |  Set (properties)               |  Yes      |  
+|                     |  Register (signal)              |  Yes      |  
+|Peer                 |  Get (properties)               |   *       | 
+|                     |  Set (properties)               |   *       | 
+|                     |  Register (signal)              |   *       | 
+|Group                |  Get (properties)               |   *       | 
+|                     |  Set (properties)               |   *       | 
+|                     |  Register (signal)              |   *       | 
+|PersistentGroup      |  Get (properties)               |   *       | 
+|                     |  Set (properties)               |   *       | 
+|                     |  Register (signal)              |   *       |
