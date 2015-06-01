@@ -69,6 +69,12 @@ class TestWpaSupplicant(unittest.TestCase):
     def _get_interface(self, interface_name):
         return self._supplicant.get_interface(interface_name)
 
+    def _get_any_bss(self):
+        iface = self._get_interface('wlan0')
+        return BSS('/fi/w1/wpa_supplicant1/Interfaces/1/BSSs/1',
+                   iface._conn,
+                   iface._reactor)
+
     #
     # Test Driver
     #
@@ -297,36 +303,48 @@ class TestWpaSupplicant(unittest.TestCase):
     # Test BSS
     #
     def test_get_channel(self):
-        pass
+        # The "channel" is a conversion from frequency, so we need to test
+        # the calculation being used
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_channel(), 11)
 
     def test_get_ssid(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_ssid(), 'FGHI')
 
     def test_get_bssid(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_bssid(), '46:47:48:49')
 
     def test_get_frequency(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_frequency(), 2462)
 
     def test_get_wpa(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_wpa(),
+            {u'Group': u'tkip', u'KeyMgmt': [u'wpa-psk'], u'Pairwise': [u'tkip']})
 
     def test_get_rsn(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_rsn(), {u'Group': u'', u'KeyMgmt': [], u'Pairwise': []})
 
     def test_get_ies(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_ies(), [0, 9, 68, 65, 80, 150, 24, 36])
 
     def test_get_privacy(self):
         interface = self._get_interface('wlan0')
         bss = interface.get_current_bss()
-        self.assertEqual(bss.get_privacy(), False)
+        self.assertEqual(bss.get_privacy(), True)
 
     def test_get_mode(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_mode(), u'infrastructure')
 
     def test_get_rates(self):
-        pass
+        bss = self._get_any_bss()
+        self.assertEqual(bss.get_rates(), [54000000, 48000000, 6000000])
 
     def test_get_signal_dbm(self):
         interface = self._get_interface('wlan0')

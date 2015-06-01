@@ -693,12 +693,12 @@ class BSS(BaseIface):
             return 1 + (freq - 2412) / 5
 
     def get_ssid(self):
-        """BSSID of the BSS"""
+        """SSID of the BSS in ASCII"""
 
         return "".join(chr(i) for i in self.get('SSID'))
 
     def get_bssid(self):
-        """SSID of the BSS"""
+        """BSSID of the BSS as hex bytes delimited by a colon"""
 
         return ":".join(["{:02X}".format(i) for i in self.get('BSSID')])
 

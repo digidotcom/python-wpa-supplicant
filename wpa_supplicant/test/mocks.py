@@ -272,25 +272,36 @@ class MockBSSObject(MockDBusObject):
     # Properties
     #
     def Get_BSSID(self):
-        return [1, 2, 3, 4]
+        # This should return an array of bytes, for testing it is ideal
+        # if the bytes fall within the ASCII range
+        return [70, 71, 72, 73]
 
     def Get_SSID(self):
-        return [1, 2, 3, 4]
+        # This should return an array of bytes, for testing it is ideal
+        # if the bytes fall within the ASCII range
+        return [70, 71, 72, 73]
 
     def Get_WPA(self):
-        return {'Group': '', 'KeyMgmt': [], 'Pairwise': []}
+        return {u'Group': u'tkip', u'KeyMgmt': [u'wpa-psk'], u'Pairwise': [u'tkip']}
 
     def Get_RSN(self):
-        return None
+        return {u'Group': u'', u'KeyMgmt': [], u'Pairwise': []}
 
     def Get_IEs(self):
-        return None
+        return [0,
+                9,
+                68,
+                65,
+                80,
+                150,
+                24,
+                36]
 
     def Get_Privacy(self):
-        return False
+        return True
 
     def Get_Mode(self):
-        return 'infrastructure'
+        return u'infrastructure'
 
     def Get_Frequency(self):
         return 2462

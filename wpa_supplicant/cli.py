@@ -5,8 +5,10 @@ from contextlib import contextmanager
 import threading
 from twisted.internet.selectreactor import SelectReactor
 import time
-from wpa_supplicant.libcore import WpaSupplicantDriver
+from wpa_supplicant.libcore import WpaSupplicantDriver, BSS
 import pprint
+import sys
+
 
 #
 # Helpers
@@ -54,8 +56,8 @@ def ctx_get(ctx, key, default=None):
 # object system:
 #
 # * fi.w1.wpa_supplicant1
-#     * fi.w1.wpa_supplicant1.Interface
-#     * fi.w1.wpa_supplicant1.Interface.WPS
+# * fi.w1.wpa_supplicant1.Interface
+# * fi.w1.wpa_supplicant1.Interface.WPS
 #     * fi.w1.wpa_supplicant1.Interface.P2PDevice
 #     * fi.w1.wpa_supplicant1.BSS
 #     * fi.w1.wpa_supplicant1.Network
@@ -83,16 +85,35 @@ def interface(ctx, ifname):
 @interface.group(name='wps')
 def interface_wps():
     """Access fi.w1.wpa_supplicant1.Interface.WPS object"""
+    raise NotImplemented
 
 
 @interface.group(name='p2p_device')
 def interface_p2p_device():
     """Access fi.w1.wpa_supplicant1.Interface.P2PDevice object"""
+    raise NotImplemented
 
 
 @root.group()
-def bss():
+@click.argument('ifname', 'e.g. wlan0')
+@click.option('--ssid', default=None, help='Look at scan results for BSS examples')
+@click.option('--bssid', default=None, help='Look at scan results for BSS examples')
+@click.pass_context
+def bss(ctx, ifname, ssid, bssid):
     """Access fi.w1.wpa_supplicant1.BSS object"""
+    ctx.ifname = ifname
+    ctx.ssid = None
+    ctx.bssid = None
+    at_least_one_option = False
+    if ssid is not None:
+        ctx.ssid = ssid
+        at_least_one_option = True
+    if bssid is not None:
+        ctx.bssid = bssid
+        at_least_one_option = True
+    if not at_least_one_option:
+        print('BSS sub-commands require a valid ssid or bssid option')
+        sys.exit(1)
 
 
 @root.group()
@@ -103,16 +124,19 @@ def network():
 @root.group()
 def peer():
     """Access fi.w1.wpa_supplicant1.Peer object"""
+    raise NotImplemented
 
 
 @root.group()
 def group():
     """Access fi.w1.wpa_supplicant1.Group object"""
+    raise NotImplemented
 
 
 @root.group()
 def persistent_group():
     """Access fi.w1.wpa_supplicant1.PersistentGroup object"""
+    raise NotImplemented
 
 
 #
@@ -205,6 +229,38 @@ def interface_set(ctx, name, value):
     with supplicant() as supp:
         iface = supp.get_interface(ctx_get(ctx, 'ifname'))
         pprint.pprint(iface.set(name, value))
+
+
+#
+# fi.w1.wpa_supplicant1.BSS API
+#
+@bss.command(name='get')
+@click.argument('name', 'Name of property (case sensitive)')
+@click.pass_context
+def bss_get(ctx, name):
+    """Method: Get Property (case sensitive)"""
+    with supplicant() as supp:
+        iface = supp.get_interface(ctx_get(ctx, 'ifname'))
+        scan_results = iface.scan(block=True)
+        for result in scan_results:
+            if result.get_ssid() == ctx_get(ctx, 'ssid') or \
+                            result.get_bssid() == ctx_get(ctx, 'bssid'):
+                bss = result
+                break
+        else:
+            print('No BSS found')
+            sys.exit(1)
+
+        pprint.pprint(bss.get(name))
+
+
+@bss.command(name='set')
+@click.argument('name', 'Name of property (case sensitive)')
+@click.argument('value', 'Value to be set')
+@click.pass_context
+def bss_set(ctx, name, value):
+    """Method: Set Property (case sensitive)"""
+    raise NotImplemented
 
 
 def run():
