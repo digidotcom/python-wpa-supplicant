@@ -29,8 +29,24 @@ Then, install the development dependencies.
 Running tests
 -------------
 
-Run the tests to make sure everything is in order.
+This project uses `nose` for finding and executing tests and `coverage` for generating
+HTML based coverage reports.
+
+Running the tests can be as easy as:
 
 ```sh
-$ nosetests wpa_supplicant/test
+$ nostests
+```
+
+However, running the tests is highly configurable and for this project it is easiest
+to run a script which makes use of config files under `etc/`.
+
+```sh
+$ ./run_tests.sh
+```
+
+Check out the coverage reports:
+
+```sh
+$ firefox cover/index.html
 ```

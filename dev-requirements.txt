@@ -6,3 +6,4 @@
 nose
 mock
 coverage
+nose-cov
