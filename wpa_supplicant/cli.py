@@ -11,7 +11,7 @@ from contextlib import contextmanager
 import threading
 from twisted.internet.selectreactor import SelectReactor
 import time
-from wpa_supplicant.libcore import WpaSupplicantDriver, BSS
+from wpa_supplicant.core import WpaSupplicantDriver, BSS
 import pprint
 import sys
 
