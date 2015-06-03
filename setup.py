@@ -11,7 +11,6 @@ install_requires = [
     'click'
 ]
 
-
 setup(
     name='wpa_supplicant',
     version='0.1',
@@ -23,4 +22,12 @@ setup(
     entry_points={
         'console_scripts': ['wpa=wpa_supplicant.cli:run']
     },
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+        "Programming Language :: Python :: 2.7",
+        "Topic :: Software Development :: Libraries",
+        "Operating System :: Linux",
+    ],
 )
