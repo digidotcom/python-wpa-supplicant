@@ -4,3 +4,4 @@ mock
 coverage
 nose-cov
 sphinx
+pyandoc

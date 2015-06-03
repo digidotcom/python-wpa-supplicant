@@ -5,16 +5,50 @@
 # Copyright (c) 2015 Digi International Inc. All Rights Reserved.
 
 from setuptools import setup, find_packages
+import os
 
 install_requires = [
     'txdbus>=1.0.1',
     'click'
 ]
 
+
+def get_long_description():
+    long_description = open('README.md').read()
+    try:
+        import subprocess
+        import pandoc
+
+        process = subprocess.Popen(
+            ['which pandoc'],
+            shell=True,
+            stdout=subprocess.PIPE,
+            universal_newlines=True)
+
+        pandoc_path = process.communicate()[0]
+        pandoc_path = pandoc_path.strip('\n')
+
+        pandoc.core.PANDOC_PATH = pandoc_path
+
+        doc = pandoc.Document()
+        doc.markdown = long_description
+        long_description = doc.rst
+        open("README.rst", "w").write(doc.rst)
+    except:
+        if os.path.exists("README.rst"):
+            long_description = open("README.rst").read()
+        else:
+            print("Could not find pandoc or convert properly")
+            print("  make sure you have pandoc (system) and pyandoc (python module) installed")
+
+    return long_description
+
+
 setup(
     name='wpa_supplicant',
     version='0.1',
     description='WPA Supplicant wrapper for Python',
+    long_description=get_long_description(),
     author="Stephen Stack",
     author_email="Stephen.Stack@digi.com",
     install_requires=install_requires,
