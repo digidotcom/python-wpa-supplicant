@@ -6,6 +6,11 @@
 
 from setuptools import setup, find_packages
 
+install_requires = [
+    'txdbus>=1.0.1',
+    'click'
+]
+
 
 setup(
     name='wpa_supplicant',
@@ -13,7 +18,7 @@ setup(
     description='WPA Supplicant wrapper for Python',
     author="Stephen Stack",
     author_email="Stephen.Stack@digi.com",
-    install_requires=open('requirements.txt').read().split(),
+    install_requires=install_requires,
     packages=find_packages(),
     entry_points={
         'console_scripts': ['wpa=wpa_supplicant.cli:run']

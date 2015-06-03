@@ -1,8 +1,4 @@
--r requirements.txt
-
-# Install ourself
 --editable .
-
 nose
 mock
 coverage

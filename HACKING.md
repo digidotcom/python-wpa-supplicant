@@ -35,7 +35,7 @@ HTML based coverage reports.
 Running the tests can be as easy as:
 
 ```sh
-$ nostests
+$ nosetests
 ```
 
 However, running the tests is highly configurable and for this project it is easiest
