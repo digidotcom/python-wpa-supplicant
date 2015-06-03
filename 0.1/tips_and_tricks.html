@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Development Tips and Tricks &mdash; python-wpa-supplicant 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="python-wpa-supplicant 0.1 documentation" href="index.html" />
+    <link rel="next" title="API Documentation" href="api.html" />
+    <link rel="prev" title="Using the wpa_supplicant Library" href="usage_library.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usage_library.html" title="Using the wpa_supplicant Library"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">python-wpa-supplicant 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="development-tips-and-tricks">
+<h1>Development Tips and Tricks<a class="headerlink" href="#development-tips-and-tricks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="d-bus-configuration">
+<h2>D-Bus Configuration<a class="headerlink" href="#d-bus-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Give your user permissions to use the D-Bus system bus:</p>
+<p>Add the following lines to the following files:</p>
+<p><strong>/etc/dbus-1/system.d/org.freedesktop.ModemManager1.conf</strong></p>
+<div class="highlight-shell"><div class="highlight"><pre>&lt;policy <span class="nv">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span>&gt;
+    &lt;allow <span class="nv">own</span><span class="o">=</span><span class="s2">&quot;org.freedesktop.ModemManager1&quot;</span>/&gt;
+&lt;/policy&gt;
+</pre></div>
+</div>
+<p><strong>/etc/dbus-1/system.d/wpa_supplicant.conf</strong></p>
+<div class="highlight-shell"><div class="highlight"><pre>&lt;policy <span class="nv">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span>&gt;
+    &lt;allow <span class="nv">own</span><span class="o">=</span><span class="s2">&quot;fi.epitest.hostap.WPASupplicant&quot;</span>/&gt;
+    &lt;allow <span class="nv">own</span><span class="o">=</span><span class="s2">&quot;fi.w1.wpa_supplicant1&quot;</span>/&gt;
+&lt;/policy&gt;
+</pre></div>
+</div>
+<p>Then, reset dbus:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>/etc/init.d/dbus stop
+<span class="nv">$ </span>/etc/init.d/dbus start
+</pre></div>
+</div>
+</div>
+<div class="section" id="disabling-networkmanager-on-ubuntu">
+<h2>Disabling NetworkManager on Ubuntu<a class="headerlink" href="#disabling-networkmanager-on-ubuntu" title="Permalink to this headline">¶</a></h2>
+<p>It is often desired to disable NetworkMananger on your dev box because the WDNU-II
+application is essentially the same thing and they likely do not play nicely together.
+To do so while keeping your DHCP ethernet connection intact (interwebs), do the following:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>sudo service network-manager stop
+<span class="nv">$ </span>sudo ifconfig eth0 up  <span class="o">(</span>make sure your interface is actually eth0!!<span class="o">)</span>
+<span class="nv">$ </span>sudo dhclient eth0
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Development Tips and Tricks</a><ul>
+<li><a class="reference internal" href="#d-bus-configuration">D-Bus Configuration</a></li>
+<li><a class="reference internal" href="#disabling-networkmanager-on-ubuntu">Disabling NetworkManager on Ubuntu</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usage_library.html"
+                        title="previous chapter">Using the wpa_supplicant Library</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">API Documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tips_and_tricks.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Stephen Stack.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/tips_and_tricks.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
