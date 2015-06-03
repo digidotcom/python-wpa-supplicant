@@ -4,7 +4,7 @@
 #
 # Copyright (c) 2015 Digi International Inc. All Rights Reserved.
 
-from wpa_supplicant.libcore import WpaSupplicantDriver, Interface, BSS, Network, \
+from wpa_supplicant.core import WpaSupplicantDriver, Interface, BSS, Network, \
     InterfaceUnknown, InterfaceExists, NotConnected, NetworkUnknown, WpaSupplicant
 from twisted.internet.selectreactor import SelectReactor
 import time

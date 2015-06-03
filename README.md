@@ -22,7 +22,7 @@ Here is a quick example of creating an wireless interface (wlan0) and performing
 With the library:
 
 ```py
-from wpa_supplicant.libcore import WpaSupplicantDriver
+from wpa_supplicant.core import WpaSupplicantDriver
 from twisted.internet.selectreactor import SelectReactor
 import threading
 import time
