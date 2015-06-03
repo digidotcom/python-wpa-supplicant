@@ -1,6 +1,8 @@
 Python wpa_supplicant Library
 =============================
 
+[Full Documentation](http://digidotcom.github.io/python-wpa-supplicant/)
+
 Motivation
 ----------
 
