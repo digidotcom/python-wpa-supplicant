@@ -6,11 +6,10 @@ Welcome to the developer's guide for the Python wpa_supplicant library.
 Setup Development Environment
 -----------------------------
 
-Use `virtualenv` to create a Python 2 and/or 3 environment.
+Use `virtualenv` to create a Python environment.
 
 ```sh
 $ virtualenv -p /usr/bin/python2 env2
-$ virtualenv -p /usr/bin/python3 env3
 ```
 
 Activate one of the environments.
