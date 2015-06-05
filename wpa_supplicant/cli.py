@@ -30,10 +30,10 @@ def supplicant():
     supplicant = driver.connect()
     try:
         yield supplicant
-    except Exception, e:
-        print 'FAIL - {}'.format(e)
+    except Exception as e:
+        print('FAIL - {}'.format(e))
     else:
-        print 'OK'
+        print('OK')
     reactor.disconnectAll()
     reactor.sigTerm()
     t.join()

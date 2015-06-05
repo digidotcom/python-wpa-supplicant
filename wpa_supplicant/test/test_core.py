@@ -3,16 +3,17 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 # Copyright (c) 2015 Digi International Inc. All Rights Reserved.
+import time
+import unittest
+import threading
 
+import six
+from six.moves.queue import Queue
 from wpa_supplicant.core import WpaSupplicantDriver, Interface, BSS, Network, \
     InterfaceUnknown, InterfaceExists, NotConnected, NetworkUnknown, WpaSupplicant
 from twisted.internet.selectreactor import SelectReactor
-import time
-import mocks
-import unittest
-import threading
 import mock
-import Queue
+from wpa_supplicant.test import mocks
 
 
 class Task(object):
@@ -32,7 +33,7 @@ class ThreadedTaskRunner(threading.Thread):
         threading.Thread.__init__(self)
         self.setDaemon(True)
 
-        self._tasks = Queue.Queue()
+        self._tasks = Queue()
 
     def run(self):
         while True:
@@ -147,7 +148,7 @@ class TestWpaSupplicant(unittest.TestCase):
 
     def test_get_debug_level(self):
         supplicant = self._driver.connect()
-        self.assertEqual(supplicant.get_debug_level(), u'info')
+        self.assertEqual(supplicant.get_debug_level(), six.u('info'))
 
     def test_get_debug_timestamp(self):
         supplicant = self._driver.connect()
@@ -159,7 +160,7 @@ class TestWpaSupplicant(unittest.TestCase):
     def test_get_interfaces(self):
         supplicant = self._driver.connect()
         self.assertEqual(supplicant.get_interfaces(),
-            [u'/fi/w1/wpa_supplicant1/Interfaces/7'])
+                         [u'/fi/w1/wpa_supplicant1/Interfaces/7'])
 
     def test_get_eap_methods(self):
         supplicant = self._driver.connect()
@@ -204,7 +205,7 @@ class TestWpaSupplicant(unittest.TestCase):
         for res in scan_results:
             self.assertTrue(isinstance(res, BSS))
             self.assertEqual(res.get_path(),
-                '/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234')
+                             '/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234')
 
     def test_add_network(self):
         interface = self._get_interface('wlan0')
@@ -279,7 +280,7 @@ class TestWpaSupplicant(unittest.TestCase):
     def test_get_all_bss(self):
         interface = self._get_interface('wlan0')
         self.assertEqual(interface.get_all_bss(),
-            ['/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234', ])
+                         ['/fi/w1/wpa_supplicant1/Interfaces/3/BSSs/1234', ])
 
     def test_get_driver(self):
         interface = self._get_interface('wlan0')
@@ -329,7 +330,7 @@ class TestWpaSupplicant(unittest.TestCase):
     def test_get_wpa(self):
         bss = self._get_any_bss()
         self.assertEqual(bss.get_wpa(),
-            {u'Group': u'tkip', u'KeyMgmt': [u'wpa-psk'], u'Pairwise': [u'tkip']})
+                         {u'Group': u'tkip', u'KeyMgmt': [u'wpa-psk'], u'Pairwise': [u'tkip']})
 
     def test_get_rsn(self):
         bss = self._get_any_bss()

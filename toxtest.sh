@@ -7,7 +7,6 @@
 #
 
 pyversions=(2.7.7
-            3.2.5
             3.3.5
             3.4.3
             pypy-2.3.1)
@@ -47,15 +46,15 @@ pyenv rehash
 pyenv global ${pyversions[*]}
 
 # Now, run the tests after sourcing venv for tox install/use
-if [ ! FAST="YES" ]; then
+if [ "$FAST" != "YES" ]; then
     virtualenv -q .toxenv
 fi
 source .toxenv/bin/activate
-if [ ! FAST="YES" ]; then
+if [ "$FAST" != "YES" ]; then
     pip install -q -r dev-requirements.txt
 fi
 
-if FAST="YES"; then
+if [ "$FAST" == "YES" ]; then
     tox
 else
     # will ensure all depencies are pulled in
