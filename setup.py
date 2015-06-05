@@ -47,7 +47,7 @@ def get_long_description():
 
 setup(
     name='wpa_supplicant',
-    version='0.1',
+    version='0.2',
     description='WPA Supplicant wrapper for Python',
     long_description=get_long_description(),
     author="Stephen Stack",
