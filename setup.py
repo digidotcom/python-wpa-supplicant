@@ -9,7 +9,8 @@ import os
 
 install_requires = [
     'txdbus>=1.0.1',
-    'click'
+    'click',
+    'six',
 ]
 
 

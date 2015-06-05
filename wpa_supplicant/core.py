@@ -40,7 +40,7 @@ def _catch_remote_errors(fn):
     def closure(*args, **kwargs):
         try:
             return fn(*args, **kwargs)
-        except error.RemoteError, ex:
+        except error.RemoteError as ex:
             match = _REMOTE_EXCEPTIONS.get(str(ex.errName))
             if match is not None:
                 raise match(ex.message)

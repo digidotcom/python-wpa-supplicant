@@ -11,6 +11,7 @@ __pycache__/
 env/
 env2/
 env3/
+.toxenv/
 build/
 develop-eggs/
 dist/
