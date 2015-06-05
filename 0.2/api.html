@@ -1,0 +1,636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Documentation &mdash; python-wpa-supplicant 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="python-wpa-supplicant 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Development Tips and Tricks" href="tips_and_tricks.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tips_and_tricks.html" title="Development Tips and Tricks"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">python-wpa-supplicant 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="wpasupplicantdriver">
+<h2>WpaSupplicantDriver<a class="headerlink" href="#wpasupplicantdriver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="wpa_supplicant.core.WpaSupplicantDriver">
+<em class="property">class </em><code class="descclassname">wpa_supplicant.core.</code><code class="descname">WpaSupplicantDriver</code><span class="sig-paren">(</span><em>reactor</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicantDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Driver object for starting, stopping and connecting to wpa_supplicant</p>
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicantDriver.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicantDriver.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to wpa_supplicant over D-Bus</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Remote D-Bus proxy object of the root wpa_supplicant interface</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">WpaSupplicant</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="wpasupplicant">
+<h2>WpaSupplicant<a class="headerlink" href="#wpasupplicant" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="wpa_supplicant.core.WpaSupplicant">
+<em class="property">class </em><code class="descclassname">wpa_supplicant.core.</code><code class="descname">WpaSupplicant</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface implemented by the main wpa_supplicant D-Bus object</p>
+<p>Registered in the bus as &#8220;fi.w1.wpa_supplicant1&#8221;</p>
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.create_interface">
+<code class="descname">create_interface</code><span class="sig-paren">(</span><em>interface_name</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.create_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a wireless interface in wpa_supplicant</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Interface object that implements the wpa_supplicant Interface API</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>InterfaceExists</strong> &#8211; The <cite>interface_name</cite> specified is already registered</li>
+<li><strong>UnknownError</strong> &#8211; An unknown error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.get_debug_level">
+<code class="descname">get_debug_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.get_debug_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global wpa_supplicant debugging level</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Possible values: &#8220;msgdump&#8221; (verbose debugging)
+&#8220;debug&#8221; (debugging)
+&#8220;info&#8221; (informative)
+&#8220;warning&#8221; (warnings)
+&#8220;error&#8221; (errors)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.get_debug_showkeys">
+<code class="descname">get_debug_showkeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.get_debug_showkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if secrets are shown in debug logs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.get_debug_timestamp">
+<code class="descname">get_debug_timestamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.get_debug_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if timestamps are shown in debug logs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.get_eap_methods">
+<code class="descname">get_eap_methods</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.get_eap_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array with supported EAP methods names</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.get_interface">
+<code class="descname">get_interface</code><span class="sig-paren">(</span><em>interface_name</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.get_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get D-Bus object related to an interface which wpa_supplicant already controls</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Interface object that implements the wpa_supplicant Interface API.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref py py-class docutils literal"><span class="pre">Interface</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>InterfaceUnknown</strong> &#8211; wpa_supplicant doesn&#8217;t know anything about <cite>interface_name</cite></li>
+<li><strong>UnknownError</strong> &#8211; An unknown error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.get_interfaces">
+<code class="descname">get_interfaces</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.get_interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array with paths to D-Bus objects representing controlled interfaces</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.WpaSupplicant.remove_interface">
+<code class="descname">remove_interface</code><span class="sig-paren">(</span><em>interface_path</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.WpaSupplicant.remove_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deregisters a wireless interface from wpa_supplicant</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>interface_path</strong> &#8211; D-Bus object path to the interface to be removed</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>InterfaceUnknown</strong> &#8211; wpa_supplicant doesn&#8217;t know anything about <cite>interface_name</cite></li>
+<li><strong>UnknownError</strong> &#8211; An unknown error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="wpa_supplicant.core.Interface">
+<em class="property">class </em><code class="descclassname">wpa_supplicant.core.</code><code class="descname">Interface</code><span class="sig-paren">(</span><em>obj_path</em>, <em>conn</em>, <em>reactor</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface implemented by objects related to network interface added to wpa_supplicant</p>
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.add_network">
+<code class="descname">add_network</code><span class="sig-paren">(</span><em>network_cfg</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.add_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new network to the interface</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>network_cfg</strong> &#8211; Dictionary of config, see wpa_supplicant.conf for k/v pairs</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>Network</cite> object that was registered w/ wpa_supplicant</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>InvalidArgs</strong> &#8211; Invalid argument format</li>
+<li><strong>UnknownError</strong> &#8211; An unknown error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.disconnect_network">
+<code class="descname">disconnect_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.disconnect_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disassociates the interface from current network</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises NotConnected:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">The interface is not currently connected to a network</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_all_bss">
+<code class="descname">get_all_bss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_all_bss" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of D-Bus objects paths representing BSSs known to the interface</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_ap_scan">
+<code class="descname">get_ap_scan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_ap_scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identical to ap_scan entry in wpa_supplicant configuration file.</p>
+<p>Possible values are 0, 1 or 2.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_bridge_ifname">
+<code class="descname">get_bridge_ifname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_bridge_ifname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of bridge network interface controlled by the interface, e.g., br0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_bss_expire_age">
+<code class="descname">get_bss_expire_age</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_bss_expire_age" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identical to bss_expiration_age entry in wpa_supplicant.conf file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_bss_expire_count">
+<code class="descname">get_bss_expire_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_bss_expire_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identical to bss_expiration_scan_count entry in wpa_supplicant.conf file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_country">
+<code class="descname">get_country</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_country" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identical to country entry in wpa_supplicant.conf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_current_bss">
+<code class="descname">get_current_bss</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_current_bss" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS object path which wpa_supplicant is associated with</p>
+<p>Returns &#8220;/&#8221; if is not associated at all</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_current_network">
+<code class="descname">get_current_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_current_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <cite>Network</cite> object which wpa_supplicant is associated with</p>
+<p>Returns <cite>None</cite> if is not associated at all</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_driver">
+<code class="descname">get_driver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of driver used by the interface, e.g., nl80211</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_fast_reauth">
+<code class="descname">get_fast_reauth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_fast_reauth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identical to fast_reauth entry in wpa_supplicant.conf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_ifname">
+<code class="descname">get_ifname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_ifname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of network interface controlled by the interface, e.g., wlan0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_networks">
+<code class="descname">get_networks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_networks" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of <cite>Network</cite> objects representing configured networks</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_scan_interval">
+<code class="descname">get_scan_interval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_scan_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time (in seconds) between scans for a suitable AP. Must be &gt;= 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_scanning">
+<code class="descname">get_scanning</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_scanning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the interface is already scanning or not</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.get_state">
+<code class="descname">get_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.get_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>A state of the interface.</p>
+<dl class="docutils">
+<dt>Possible values are: &#8220;disconnected&#8221;</dt>
+<dd>&#8220;inactive&#8221;
+&#8220;scanning&#8221;
+&#8220;authenticating&#8221;
+&#8220;associating&#8221;
+&#8220;associated&#8221;
+&#8220;4way_handshake&#8221;
+&#8220;group_handshake&#8221;
+&#8220;completed&#8221;
+&#8220;unknown&#8221;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.remove_network">
+<code class="descname">remove_network</code><span class="sig-paren">(</span><em>network_path</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.remove_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a configured network from the interface</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>network_path</strong> &#8211; D-Bus object path to the desired network</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>NetworkUnknown</strong> &#8211; The specified <cite>network_path</cite> is invalid</li>
+<li><strong>InvalidArgs</strong> &#8211; Invalid argument format</li>
+<li><strong>UnknownError</strong> &#8211; An unknown error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.scan">
+<code class="descname">scan</code><span class="sig-paren">(</span><em>type='active'</em>, <em>ssids=None</em>, <em>ies=None</em>, <em>channels=None</em>, <em>block=False</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers a scan</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of <cite>BSS</cite> objects if block=True else None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>InvalidArgs</strong> &#8211; Invalid argument format</li>
+<li><strong>MethodTimeout</strong> &#8211; Scan has timed out (only if block=True)</li>
+<li><strong>UnknownError</strong> &#8211; An unknown error occurred</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Interface.select_network">
+<code class="descname">select_network</code><span class="sig-paren">(</span><em>network_path</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Interface.select_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt association with a configured network</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>network_path</strong> &#8211; D-Bus object path to the desired network</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>NetworkUnknown</strong> &#8211; The specified <cite>network_path</cite> has not been added</li>
+<li><strong>InvalidArgs</strong> &#8211; Invalid argument format</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="network">
+<h2>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="wpa_supplicant.core.Network">
+<em class="property">class </em><code class="descclassname">wpa_supplicant.core.</code><code class="descname">Network</code><span class="sig-paren">(</span><em>obj_path</em>, <em>conn</em>, <em>reactor</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface implemented by objects representing configured networks</p>
+<dl class="method">
+<dt id="wpa_supplicant.core.Network.get_enabled">
+<code class="descname">get_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Network.get_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the configured network is enabled or not</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.Network.get_properties">
+<code class="descname">get_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.Network.get_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properties of the configured network</p>
+<p>Dictionary contains entries from &#8220;network&#8221; block of  wpa_supplicant.conf.
+All values are string type, e.g., frequency is &#8220;2437&#8221;, not 2437.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bss">
+<h2>BSS<a class="headerlink" href="#bss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="wpa_supplicant.core.BSS">
+<em class="property">class </em><code class="descclassname">wpa_supplicant.core.</code><code class="descname">BSS</code><span class="sig-paren">(</span><em>obj_path</em>, <em>conn</em>, <em>reactor</em><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface implemented by objects representing a scanned BSSs (scan results)</p>
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_bssid">
+<code class="descname">get_bssid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_bssid" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSSID of the BSS as hex bytes delimited by a colon</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_channel">
+<code class="descname">get_channel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wi-Fi channel number (1-14)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_frequency">
+<code class="descname">get_frequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Frequency of the BSS in MHz</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_ies">
+<code class="descname">get_ies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_ies" title="Permalink to this definition">¶</a></dt>
+<dd><p>All IEs of the BSS as a chain of TLVs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_mode">
+<code class="descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes mode of the BSS</p>
+<dl class="docutils">
+<dt>Possible values are: &#8220;ad-hoc&#8221;</dt>
+<dd>&#8220;infrastructure&#8221;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_network_type">
+<code class="descname">get_network_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_network_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the network type as a string</p>
+<dl class="docutils">
+<dt>Possible values are:</dt>
+<dd>&#8216;WPA&#8217;
+&#8216;WPA2&#8217;
+&#8216;WEP&#8217;
+&#8216;OPEN&#8217;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_privacy">
+<code class="descname">get_privacy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_privacy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates if BSS supports privacy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_rates">
+<code class="descname">get_rates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Descending ordered array of rates supported by the BSS in bits per second</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_rsn">
+<code class="descname">get_rsn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_rsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>RSN/WPA2 information of the BSS, empty dictionary indicates no RSN support</p>
+<p>Dictionaries are:</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+    &quot;KeyMgmt&quot;: &lt;Possible array elements: &quot;wpa-psk&quot;, &quot;wpa-eap&quot;, &quot;wpa-ft-psk&quot;, &quot;wpa-ft-eap&quot;, &quot;wpa-psk-sha256&quot;, &quot;wpa-eap-sha256&quot;&gt;,
+    &quot;Pairwise&quot;: &lt;Possible array elements: &quot;ccmp&quot;, &quot;tkip&quot;&gt;,
+    &quot;Group&quot;: &lt;Possible values are: &quot;ccmp&quot;, &quot;tkip&quot;, &quot;wep104&quot;, &quot;wep40&quot;&gt;,
+    &quot;MgmtGroup&quot;: &lt;Possible values are: &quot;aes128cmac&quot;&gt;,
+}
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_signal_dbm">
+<code class="descname">get_signal_dbm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_signal_dbm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signal strength of the BSS in dBm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_signal_quality">
+<code class="descname">get_signal_quality</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_signal_quality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signal strength of the BSS as a percentage (0-100)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_ssid">
+<code class="descname">get_ssid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_ssid" title="Permalink to this definition">¶</a></dt>
+<dd><p>SSID of the BSS in ASCII</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.get_wpa">
+<code class="descname">get_wpa</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.get_wpa" title="Permalink to this definition">¶</a></dt>
+<dd><p>WPA information of the BSS, empty dictionary indicates no WPA support</p>
+<p>Dictionaries are:</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+    &quot;KeyMgmt&quot;: &lt;Possible array elements: &quot;wpa-psk&quot;, &quot;wpa-eap&quot;, &quot;wpa-none&quot;&gt;,
+    &quot;Pairwise&quot;: &lt;Possible array elements: &quot;ccmp&quot;, &quot;tkip&quot;&gt;,
+    &quot;Group&quot;: &lt;Possible values are: &quot;ccmp&quot;, &quot;tkip&quot;, &quot;wep104&quot;, &quot;wep40&quot;&gt;,
+    &quot;MgmtGroup&quot;: &lt;Possible values are: &quot;aes128cmac&quot;&gt;
+}
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="wpa_supplicant.core.BSS.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wpa_supplicant.core.BSS.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict representation of a BSS object</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API Documentation</a><ul>
+<li><a class="reference internal" href="#wpasupplicantdriver">WpaSupplicantDriver</a></li>
+<li><a class="reference internal" href="#wpasupplicant">WpaSupplicant</a></li>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#network">Network</a></li>
+<li><a class="reference internal" href="#bss">BSS</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tips_and_tricks.html"
+                        title="previous chapter">Development Tips and Tricks</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Stephen Stack.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/api.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
