@@ -1,7 +1,13 @@
 Python wpa_supplicant Library
 =============================
 
-[Full Documentation](http://digidotcom.github.io/python-wpa-supplicant/)
+[![Build Status](https://img.shields.io/travis/digidotcom/python-wpa-supplicant.svg)](https://travis-ci.org/digidotcom/python-wpa-supplicant)
+[![Coverage Status](https://img.shields.io/coveralls/digidotcom/python-wpa-supplicant.svg)](https://coveralls.io/r/digidotcom/python-wpa-supplicant)
+[![Code Climate](https://img.shields.io/codeclimate/github/digidotcom/python-wpa-supplicant.svg)](https://codeclimate.com/github/digidotcom/python-wpa-supplicant)
+[![Latest Version](https://img.shields.io/pypi/v/wpa_supplicant.svg)](https://pypi.python.org/pypi/wpa_supplicant/)
+[![License](https://img.shields.io/badge/license-MPL%202.0-blue.svg)](https://github.com/digidotcom/python-wpa-supplicant/blob/master/LICENSE)
+
+* [Full Documentation](http://digidotcom.github.io/python-wpa-supplicant/)
 
 Motivation
 ----------
