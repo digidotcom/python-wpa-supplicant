@@ -5,3 +5,4 @@ coverage
 nose-cov
 sphinx
 pyandoc
+tox
