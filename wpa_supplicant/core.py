@@ -367,7 +367,7 @@ class WpaSupplicant(BaseIface):
             self._interfaces_cache[interface_path] = interface
             return interface
 
-    def create_interface(self, interface_name):
+    def create_interface(self, interface_name, driver=None):
         """Registers a wireless interface in wpa_supplicant
 
         :returns: Interface object that implements the wpa_supplicant Interface API
@@ -376,7 +376,8 @@ class WpaSupplicant(BaseIface):
         """
 
         interface_path = self._call_remote_without_introspection('CreateInterface',
-                                                                 {'Ifname': interface_name})
+                                                                 {'Ifname': interface_name,
+                                                                  'Driver': driver})
         return Interface(interface_path, self._conn, self._reactor)
 
     def remove_interface(self, interface_path):
