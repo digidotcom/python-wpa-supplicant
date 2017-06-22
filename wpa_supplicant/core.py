@@ -693,11 +693,13 @@ class BSS(BaseIface):
 
         if freq == 2484:  # Handle channel 14
             return 14
-        elif freq > 2472 or freq < 2412:
+        elif freq >= 2412 and freq <= 2472:
+            return 1 + (freq - 2412) / 5
+        elif freq >= 5180 and freq <= 5905:
+            return 36 + (freq - 5180) / 5
+        else:
             logger.warn('Unexpected frequency %s', freq)
             raise WpaSupplicantException('Unexpected frequency in WiFi connection.')
-        else:
-            return 1 + (freq - 2412) / 5
 
     def get_ssid(self):
         """SSID of the BSS in ASCII"""
