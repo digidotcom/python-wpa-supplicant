@@ -440,6 +440,7 @@ class Interface(BaseIface):
         Method('RemoveNetwork', arguments='o'),
         Method('SelectNetwork', arguments='o'),
         Method('Disconnect'),
+        Method('SaveConfig'),
         Signal('ScanDone', 'b'),
         Signal('PropertiesChanged', 'a{sv}')
     )
@@ -524,6 +525,14 @@ class Interface(BaseIface):
         """
 
         self._call_remote('Disconnect')
+
+    def save_config(self):
+        """Save current configuration to disk
+
+        :returns: None
+        """
+
+        self._call_remote('SaveConfig')
 
     #
     # Properties
