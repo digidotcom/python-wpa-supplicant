@@ -6,3 +6,5 @@ nose-cov
 sphinx
 pyandoc
 tox
+click==6.7
+Twisted==17.5.0
