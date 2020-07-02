@@ -456,7 +456,7 @@ class Interface(BaseIface):
     #
     # Methods
     #
-    def scan(self, type='active', ssids=None, ies=None, channels=None, block=False):
+    def scan(self, type='active', ssids=None, ies=None, channels=None, block=False, timeout=10):
         """Triggers a scan
 
         :returns: List of `BSS` objects if block=True else None
@@ -474,7 +474,7 @@ class Interface(BaseIface):
         if block:
             deferred_queue = self.register_signal_once('ScanDone')
             self._call_remote('Scan', scan_options)  # Trigger scan
-            success = deferred_queue.get(timeout=10)
+            success = deferred_queue.get(timeout=timeout)
             if success:
                 return [BSS(path, self._conn, self._reactor) for path in self.get_all_bss()]
             else:
