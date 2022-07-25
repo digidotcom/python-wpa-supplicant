@@ -697,15 +697,22 @@ class BSS(BaseIface):
     # Properties
     #
     def get_channel(self):
-        """Wi-Fi channel number (1-14)"""
+        """Wi-Fi channel number(now supporting 802.11ax)"""
         freq = self.get_frequency()
-
-        if freq == 2484:  # Handle channel 14
+        if freq == 2484:
             return 14
-        elif freq >= 2412 and freq <= 2472:
-            return 1 + (freq - 2412) / 5
-        elif freq >= 5180 and freq <= 5905:
-            return 36 + (freq - 5180) / 5
+        elif freq < 2484:
+            return int((freq - 2407) / 5)
+        elif freq >= 4910 and freq <= 4980:
+            return int((freq - 4000) / 5)
+        elif freq < 5925:
+            return int((freq - 5000) / 5)
+        elif freq == 5935:
+            return 2
+        elif freq <= 45000:
+            return int((freq - 5950) / 5)
+        elif freq >= 58320 and freq <= 70200:
+            return int((freq - 56160) / 2160)        
         else:
             logger.warn('Unexpected frequency %s', freq)
             raise WpaSupplicantException('Unexpected frequency in WiFi connection.')
